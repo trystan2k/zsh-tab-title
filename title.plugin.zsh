@@ -42,10 +42,17 @@ function title {
 }
 
 ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
-ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
+
+if [[ "$ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX" == true ]]; then
+  ZSH_TAB_TITLE_PREFIX=""
+elif [[ -z "$ZSH_TAB_TITLE_PREFIX" ]]; then
+  ZSH_TAB_TITLE_PREFIX="%n@%m:"
+fi
+
+ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX %~ $ZSH_TAB_TITLE_SUFFIX"
 # Avoid duplication of directory in terminals with independent dir display
 if [[ "$TERM_PROGRAM" == Apple_Terminal ]]; then
-  ZSH_THEME_TERM_TITLE_IDLE="%n@%m"
+  ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX $ZSH_TAB_TITLE_SUFFIX"
 fi
 
 # Runs before showing the prompt
