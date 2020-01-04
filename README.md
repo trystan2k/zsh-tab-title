@@ -1,6 +1,6 @@
 # ZSH Tab Title
 
-[![v1.0.0](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v1.0.0)
+[![v1.1.0](https://img.shields.io/badge/version-1.1.0-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v1.1.0)
 
 A zsh plugin that allows you to set a terminal header like any of PROMPT
 
@@ -30,3 +30,30 @@ Add `antigen bundle trystan2k/zsh-tab-title` into `.zshrc`
 
 Add `zgen load trystan2k/zsh-tab-title` into `.zshrc`
 
+## Configuration
+
+You can configure the prefix and/or suffix to be showed in tab title, besides the current folder.
+
+### PREFIX
+
+The prefix can be configured using the variable `ZSH_TAB_TITLE_PREFIX` and it will be added **before** the current folder, in tab title. For example:
+
+```sh
+ZSH_TAB_TITLE_PREFIX='$USER@$HOST - '
+```
+
+By default, if no value is informed, it is used the value `%m@%n:` which will show the user name and computer name, separated by @. For example: `trystan2k@MyPC: /home/trystan2k`. This default value can be disabled if variable `ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX` is set to try. For example:
+
+```sh
+ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
+```
+
+### SUFFIX
+
+The suffix can be configured using the variable `ZSH_TAB_TITLE_SUFFIX` and it will be added **after** the current folder, in tab title. For example:
+
+```sh
+ZSH_TAB_TITLE_SUFFIX='- $USER'
+```
+
+This variable has no default value, so if nothing is informed, no suffix is added
