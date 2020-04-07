@@ -1,6 +1,8 @@
 # ZSH Tab Title
 
-[![v1.2.0](https://img.shields.io/badge/version-1.2.0-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v1.2.0)
+[![v2.0.0](https://img.shields.io/badge/version-2.0.0-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v2.0.0)
+
+![](https://github.com/trystan2k/zsh-tab-title/workflows/CI-workflow/badge.svg)
 
 A zsh plugin that allows you to set a terminal header like any of PROMPT
 
@@ -33,6 +35,30 @@ Add `zgen load trystan2k/zsh-tab-title` into `.zshrc`
 ## Configuration
 
 You can configure the prefix and/or suffix to be showed in tab title, besides the current folder.
+
+### DISABLE
+
+You can disable the plugin adding
+
+```sh
+ZSH_TAB_TITLE_DISABLE_AUTO_TITLE=true
+```
+
+### CURRENT FOLDER
+
+You can display in the tab title, just the last folder you are in. So for example, if you are at `/home/user/zsh-tab-title`, the tab will only display `zsh-tab-title`. The default behavior, it will show the complete path, truncated at 20 chars. To enable current folder only, do:
+
+```sh
+ZSH_TAB_TITLE_ONLY_FOLDER=true
+```
+
+### CONCAT FOLDER AND PROCESS
+
+When executing a command, it is showed in the tab title. You can setup to concatenate the current folder to it, so it can display, for example, `zsh-tab-title:ls`, when doing a `ls` in `/home/user/zsh-tab-title`. To enable concat folder and process, do:
+
+```sh
+ZSH_TAB_TITLE_ONLY_FOLDER=true
+```
 
 ### PREFIX
 

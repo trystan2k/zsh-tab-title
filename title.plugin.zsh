@@ -1,11 +1,12 @@
+#!/bin/bash
+
 # Set terminal window and tab/icon title
 #
 # usage: title short_tab_title [long_window_title]
 #
 # See: http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
-# Fully supports screen, iterm, and probably most modern xterm and rxvt
+# Fully supports screen, hyper, iterm, and probably most modern xterm and rxvt
 # (In screen, only short_tab_title is used)
-# Limited support for Apple Terminal (Terminal can't set window and tab separately)
 function title {
   emulate -L zsh
   setopt prompt_subst
@@ -14,34 +15,29 @@ function title {
 
   # if $2 is unset use $1 as default
   # if it is set and empty, leave it as is
-  : ${2=$1}
+  : "${2=$1}"
 
-  case "$TERM" in
-    cygwin|xterm*|putty*|rxvt*|ansi)
-      print -Pn "\e]2;$2:q\a" # set window name
-      print -Pn "\e]1;$1:q\a" # set tab name
-      ;;
-    screen*|tmux*)
-      print -Pn "\ek$1:q\e\\" # set screen hardstatus
-      ;;
-    *)
-      if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+  if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+    print -Pn "\e]2;$2:q\a" # set window name
+    print -Pn "\e]1;$1:q\a" # set tab name
+  elif [[ "$TERM_PROGRAM" == "Hyper" ]]; then
+    print -Pn "\e]1;$2:q\a" # set tab name
+    print -Pn "\e]2;$1:q\a" # set window name
+  else
+    case "$TERM" in
+      cygwin|xterm*|putty*|rxvt*|ansi)
         print -Pn "\e]2;$2:q\a" # set window name
         print -Pn "\e]1;$1:q\a" # set tab name
-      else
-        # Try to use terminfo to set the title
-        # If the feature is available set title
-        if [[ -n "$terminfo[fsl]" ]] && [[ -n "$terminfo[tsl]" ]]; then
-	  echoti tsl
-	  print -Pn "$1"
-	  echoti fsl
-	fi
-      fi
       ;;
-  esac
+      
+      screen*|tmux*)
+        print -Pn "\ek$1:q\e\\" # set screen hardstatus
+      ;;
+    esac
+  fi
 }
 
-ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
+ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #15 char left truncated PWD
 
 if [[ "$ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX" == true ]]; then
   ZSH_TAB_TITLE_PREFIX=""
@@ -55,11 +51,15 @@ ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX %~ $ZSH_TAB_TITLE_SUFFIX"
 function omz_termsupport_precmd {
   emulate -L zsh
 
-  if [[ "$DISABLE_AUTO_TITLE" == true ]]; then
+  if [[ "$ZSH_TAB_TITLE_DISABLE_AUTO_TITLE" == true ]]; then
     return
   fi
 
-  title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
+  if [[ "$ZSH_TAB_TITLE_ONLY_FOLDER" == true ]]; then
+    ZSH_THEME_TERM_TAB_TITLE_IDLE=${PWD##*/}
+  fi
+
+  title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
 }
 
 # Runs before executing the command
@@ -67,7 +67,7 @@ function omz_termsupport_preexec {
   emulate -L zsh
   setopt extended_glob
 
-  if [[ "$DISABLE_AUTO_TITLE" == true ]]; then
+  if [[ "$ZSH_TAB_TITLE_DISABLE_AUTO_TITLE" == true ]]; then
     return
   fi
 
@@ -75,8 +75,15 @@ function omz_termsupport_preexec {
   local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
   local LINE="${2:gs/%/%%}"
 
-  title '$CMD' '%100>...>$LINE%<<'
+  if [[ "$ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS" == true ]]; then
+    title "${PWD##*/}:%100>...>$LINE%<<" "${PWD##*/}:${CMD}"
+  else
+    title "%100>...>$LINE%<<" "$CMD"
+  fi  
 }
+
+# Execute the first time, so it show correctly on terminal load
+title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd omz_termsupport_precmd

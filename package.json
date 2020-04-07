@@ -1,0 +1,26 @@
+{
+    "name": "@trystan2k/zsh-tab-title",
+    "version": "2.0.0",
+    "description": "A zsh plugin that allows you to set a terminal header like any of PROMPT",
+    "keywords": [
+        "trystan2k",
+        "terminal",
+        "macos",
+        "linux",
+        "hyper",
+        "tab-title"
+    ],
+    "scripts": {
+        "lint": "bash shellcheck.sh",
+        "release": "npm --no-git-tag-version version"
+    },
+    "repository": {
+        "type": "git",
+        "url": "ssh://git@github.com:trystan2k/zsh-tab-title.git"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^7.5.2",
+        "@commitlint/config-conventional": "^7.5.0",
+        "husky": "^2.2.0"
+    }
+}
