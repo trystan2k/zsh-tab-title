@@ -1,6 +1,6 @@
 # ZSH Tab Title
 
-[![v2.0.0](https://img.shields.io/badge/version-2.0.0-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v2.0.0)
+[![v2.0.1](https://img.shields.io/badge/version-2.0.1-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v2.0.1)
 
 ![](https://github.com/trystan2k/zsh-tab-title/workflows/CI-workflow/badge.svg)
 
