@@ -12,9 +12,9 @@ This is completely based on [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh/blob/
 
 ## Installation
 
-### Using [zplugin](https://github.com/zdharma/zplugin)
+### Using [zinit](https://github.com/zdharma/zinit)
 
-Add `zplugin light trystan2k/zsh-tab-title` into `.zshrc`
+Add `zinit light trystan2k/zsh-tab-title` into `.zshrc`
 
 ### Using [zpm](https://github.com/zpm-zsh/zpm)
 
