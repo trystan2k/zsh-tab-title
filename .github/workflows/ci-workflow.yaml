@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Lint check
-        uses: azohra/shell-linter@v0.2.0      
+        uses: azohra/shell-linter@v0.4.0      
