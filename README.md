@@ -1,8 +1,8 @@
 # ZSH Tab Title
 
-[![v2.0.2](https://img.shields.io/badge/version-2.0.2-brightgreen.svg)](https://github.com/trystan2k/zsh-tab-title/tree/v2.0.2)
+![GitHub version](https://badge.fury.io/gh/trystan2k%2Fzsh-tab-title.svg)
 
-![](https://github.com/trystan2k/zsh-tab-title/workflows/CI-workflow/badge.svg)
+![Build](https://github.com/trystan2k/zsh-tab-title/workflows/CI-workflow/badge.svg)
 
 A zsh plugin that allows you to set a terminal header like any of PROMPT
 
