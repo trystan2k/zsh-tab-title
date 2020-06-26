@@ -19,8 +19,8 @@
         "url": "ssh://git@github.com:trystan2k/zsh-tab-title.git"
     },
     "devDependencies": {
-        "@commitlint/cli": "^7.5.2",
-        "@commitlint/config-conventional": "^7.5.0",
-        "husky": "^2.2.0"
+        "@commitlint/cli": "^9.0.0",
+        "@commitlint/config-conventional": "^9.0.0",
+        "husky": "^4.2.0"
     }
 }
