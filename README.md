@@ -1,6 +1,6 @@
 # ZSH Tab Title
 
-![GitHub version](https://badge.fury.io/gh/trystan2k%2Fzsh-tab-title.svg)
+[![GitHub version](https://badge.fury.io/gh/trystan2k%2Fzsh-tab-title.svg)](https://badge.fury.io/gh/trystan2k%2Fzsh-tab-title)svg)
 
 ![Build](https://github.com/trystan2k/zsh-tab-title/workflows/CI-workflow/badge.svg)
 
