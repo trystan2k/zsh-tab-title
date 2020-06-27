@@ -10,17 +10,52 @@
         "hyper",
         "tab-title"
     ],
-    "scripts": {
-        "lint": "bash shellcheck.sh",
-        "release": "npm --no-git-tag-version version"
+    "homepage": "https://github.com/trystan2k/zsh-tab-title#readme",
+    "bugs": {
+        "url": "https://github.com/trystan2k/zsh-tab-title/issues"
     },
     "repository": {
         "type": "git",
         "url": "ssh://git@github.com:trystan2k/zsh-tab-title.git"
     },
+    "license": "MIT",
+    "author": {
+        "name": "Thiago Mendonca",
+        "email": "trystan2k@gmail.com"
+    },
+    "scripts": {
+        "lint": "bash shellcheck.sh",
+        "push": "git push && git push --tags",
+        "release": "standard-version"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ]
+    },
+    "lint-staged": {
+        "*.+(sh)": [
+            "npm run lint"
+        ],
+        "package.json": [
+            "sort-package-json"
+        ]
+    },
     "devDependencies": {
         "@commitlint/cli": "^9.0.0",
         "@commitlint/config-conventional": "^9.0.0",
-        "husky": "^4.2.0"
+        "husky": "^4.2.0",
+        "lint-staged": "^10.2.0",
+        "sort-package-json": "^1.42.1",
+        "standard-version": "^8.0.0"
+    },
+    "standard-version": {
+        "releaseCommitMessageFormat": "chore: release {{currentTag}}"
     }
 }
