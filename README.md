@@ -57,7 +57,7 @@ ZSH_TAB_TITLE_ONLY_FOLDER=true
 When executing a command, it is showed in the tab title. You can setup to concatenate the current folder to it, so it can display, for example, `zsh-tab-title:ls`, when doing a `ls` in `/home/user/zsh-tab-title`. To enable concat folder and process, do:
 
 ```sh
-ZSH_TAB_TITLE_ONLY_FOLDER=true
+ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS=true
 ```
 
 ### PREFIX
