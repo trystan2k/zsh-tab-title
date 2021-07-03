@@ -60,6 +60,14 @@ When executing a command, it is showed in the tab title. You can setup to concat
 ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS=true
 ```
 
+### FULL COMMAND
+
+Enable to show the full command being run with it's arguments in the tab title. For example, ``nano .zshrc`` will show ``nano .zshrc`` instead of just ``nano``. Default is to display only the command without it's arguments.
+
+```sh
+ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
+```
+
 ### PREFIX
 
 The prefix can be configured using the variable `ZSH_TAB_TITLE_PREFIX` and it will be added **before** the current folder, in tab title. For example:
