@@ -10,7 +10,7 @@
 function title {
   emulate -L zsh
   setopt prompt_subst
-
+  
   [[ "$EMACS" == *term* ]] && return
 
   # if $2 is unset use $1 as default
@@ -25,7 +25,7 @@ function title {
     print -Pn "\e]2;$1:q\a" # set window name
   else
     case "$TERM" in
-      cygwin|xterm*|putty*|rxvt*|ansi)
+      cygwin|xterm*|putty*|rxvt*|ansi|${~ZSH_TAB_TITLE_ADDITIONAL_TERMS})
         print -Pn "\e]2;$2:q\a" # set window name
         print -Pn "\e]1;$1:q\a" # set tab name
       ;;
