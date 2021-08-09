@@ -10,24 +10,28 @@
 function title {
   emulate -L zsh
   setopt prompt_subst
-
+  
   [[ "$EMACS" == *term* ]] && return
 
   # if $2 is unset use $1 as default
   # if it is set and empty, leave it as is
   : "${2=$1}"
 
+  _termTitleIdle="$3 $1 $4"
+
   if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-    print -Pn "\e]2;$2:q\a" # set window name
-    print -Pn "\e]1;$1:q\a" # set tab name
+    print -Pn "\e]1;$2:q\a" # set window name
+    print -Pn "\e]2;$_termTitleIdle:q\a" # set tab name
   elif [[ "$TERM_PROGRAM" == "Hyper" ]]; then
+    print -Pn "\e]2;$2:q\a" # set tab name
+    print -Pn "\e]1;$_termTitleIdle:q\a" # set window name
+  elif [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
     print -Pn "\e]1;$2:q\a" # set tab name
-    print -Pn "\e]2;$1:q\a" # set window name
+    print -Pn "\e]2;$_termTitleIdle:q\a" # set window name    
   else
     case "$TERM" in
-      cygwin|xterm*|putty*|rxvt*|ansi)
-        print -Pn "\e]2;$2:q\a" # set window name
-        print -Pn "\e]1;$1:q\a" # set tab name
+      cygwin|xterm*|putty*|rxvt*|ansi|${~ZSH_TAB_TITLE_ADDITIONAL_TERMS})
+        print -Pn "\e]0;$_termTitleIdle\a" # set tab and window name
       ;;
       
       screen*|tmux*)
@@ -45,7 +49,7 @@ elif [[ -z "$ZSH_TAB_TITLE_PREFIX" ]]; then
   ZSH_TAB_TITLE_PREFIX="%n@%m:"
 fi
 
-ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX %~ $ZSH_TAB_TITLE_SUFFIX"
+ZSH_THEME_TERM_TITLE_IDLE="%~"
 
 # Runs before showing the prompt
 function omz_termsupport_precmd {
@@ -59,7 +63,7 @@ function omz_termsupport_precmd {
     ZSH_THEME_TERM_TAB_TITLE_IDLE=${PWD##*/}
   fi
 
-  title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
+  title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE" "$ZSH_TAB_TITLE_PREFIX" "$ZSH_TAB_TITLE_SUFFIX"
 }
 
 # Runs before executing the command
@@ -71,8 +75,13 @@ function omz_termsupport_preexec {
     return
   fi
 
-  # cmd name only, or if this is sudo or ssh, the next cmd
-  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+  if [[ "$ZSH_TAB_TITLE_ENABLE_FULL_COMMAND" == true ]]; then
+  	  # full command
+	  local CMD=${1}
+  else
+	  # cmd name only, or if this is sudo or ssh, the next cmd
+	  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+  fi
   local LINE="${2:gs/%/%%}"
 
   if [[ "$ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS" == true ]]; then
@@ -83,7 +92,7 @@ function omz_termsupport_preexec {
 }
 
 # Execute the first time, so it show correctly on terminal load
-title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
+title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE" "$ZSH_TAB_TITLE_PREFIX" "$ZSH_TAB_TITLE_SUFFIX"
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd omz_termsupport_precmd
