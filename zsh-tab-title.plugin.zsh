@@ -73,7 +73,7 @@ function omz_termsupport_preexec {
 
   if [[ "$ZSH_TAB_TITLE_ENABLE_FULL_COMMAND" == true ]]; then
   	  # full command
-	  local CMD=${1}
+	  local CMD=${1:gs/%/%%}
   else
 	  # cmd name only, or if this is sudo or ssh, the next cmd
 	  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
