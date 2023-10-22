@@ -36,19 +36,7 @@ function title {
   fi
 }
 
-ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #15 char left truncated PWD
-
-if [[ "$ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX" == true ]]; then
-  ZSH_TAB_TITLE_PREFIX=""
-elif [[ -z "$ZSH_TAB_TITLE_PREFIX" ]]; then
-  ZSH_TAB_TITLE_PREFIX="%n@%m:"
-fi
-
-ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX %~ $ZSH_TAB_TITLE_SUFFIX"
-
-# Runs before showing the prompt
-function omz_termsupport_precmd {
-  emulate -L zsh
+function setTerminalTitleInIdle {
 
   if [[ "$ZSH_TAB_TITLE_DISABLE_AUTO_TITLE" == true ]]; then
     return
@@ -56,9 +44,26 @@ function omz_termsupport_precmd {
 
   if [[ "$ZSH_TAB_TITLE_ONLY_FOLDER" == true ]]; then
     ZSH_THEME_TERM_TAB_TITLE_IDLE=${PWD##*/}
+  else
+    ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #15 char left truncated PWD
   fi
 
+  if [[ "$ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX" == true ]]; then
+  ZSH_TAB_TITLE_PREFIX=""
+  elif [[ -z "$ZSH_TAB_TITLE_PREFIX" ]]; then
+    ZSH_TAB_TITLE_PREFIX="%n@%m:"
+  fi
+
+  ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX %~ $ZSH_TAB_TITLE_SUFFIX"
+
   title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
+}
+
+# Runs before showing the prompt
+function omz_termsupport_precmd {
+  emulate -L zsh
+
+  setTerminalTitleInIdle
 }
 
 # Runs before executing the command
@@ -87,7 +92,7 @@ function omz_termsupport_preexec {
 }
 
 # Execute the first time, so it show correctly on terminal load
-title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
+setTerminalTitleInIdle
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd omz_termsupport_precmd
