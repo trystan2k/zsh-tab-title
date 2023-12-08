@@ -76,7 +76,7 @@ The prefix can be configured using the variable `ZSH_TAB_TITLE_PREFIX` and it wi
 ZSH_TAB_TITLE_PREFIX='$USER@$HOST - '
 ```
 
-By default, if no value is informed, it is used the value `%m@%n:` which will show the user name and computer name, separated by @. For example: `trystan2k@MyPC: /home/trystan2k`. This default value can be disabled if variable `ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX` is set to try. For example:
+By default, if no value is informed, it is used the value `%m@%n:` which will show the user name and computer name, separated by @. For example: `trystan2k@MyPC: /home/trystan2k`. This default value can be disabled if variable `ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX` is set to true. For example:
 
 ```sh
 ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
