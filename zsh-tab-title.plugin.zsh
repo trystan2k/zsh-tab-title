@@ -83,11 +83,12 @@ function omz_termsupport_preexec {
   if [[ "$ZSH_TAB_TITLE_ENABLE_FULL_COMMAND" == true ]]; then
   	  # full command
 	  local CMD=${1:gs/%/%%}
+    local LINE=${2:gs/%/%%}
   else
 	  # cmd name only, or if this is sudo or ssh, the next cmd
 	  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+    local LINE=${2[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
   fi
-  local LINE="${2:gs/%/%%}"
 
   if [[ "$ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS" == true ]]; then
     title "${PWD##*/}:%100>...>$LINE%<<" "${PWD##*/}:${CMD}"
