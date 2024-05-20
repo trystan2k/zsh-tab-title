@@ -102,3 +102,5 @@ setTerminalTitleInIdle
 autoload -U add-zsh-hook
 add-zsh-hook precmd omz_termsupport_precmd
 add-zsh-hook preexec omz_termsupport_preexec
+
+echo "You are currently using an deprecated version of this plugin. Please uninstall the plugin and install the new version or you will start to have problems soon."
