@@ -21,20 +21,25 @@
     "email": "trystan2k@gmail.com"
   },
   "scripts": {
+    "clean": "rm -rf node_modules",
+    "cz": "git-cz",
     "lint": "bash shellcheck.sh",
+    "prepare": "husky",
     "push": "git push && git push --tags",
-    "release": "standard-version"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "release": "standard-version",
+    "release:as": "standard-version --release-as"
   },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ]
+    ],
+    "rules": {
+      "header-max-length": [
+        2,
+        "always",
+        100
+      ]
+    }
   },
   "lint-staged": {
     "*.+(sh)": [
@@ -44,13 +49,30 @@
       "sort-package-json"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "prettier": {
+    "overrides": [
+      {
+        "files": "*.json",
+        "options": {
+          "parser": "json-stringify"
+        }
+      }
+    ]
+  },
   "devDependencies": {
-    "@commitlint/cli": "^9.0.0",
-    "@commitlint/config-conventional": "^9.0.0",
-    "husky": "^4.2.0",
-    "lint-staged": "^10.2.0",
-    "sort-package-json": "^1.42.1",
-    "standard-version": "^8.0.0"
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cz-commitlint": "^19.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "sort-package-json": "^2.10.0",
+    "standard-version": "^9.5.0"
   },
   "standard-version": {
     "releaseCommitMessageFormat": "chore: release {{currentTag}}"

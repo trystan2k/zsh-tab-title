@@ -9,9 +9,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Lint check
-        uses: azohra/shell-linter@v0.4.0    
+        uses: azohra/shell-linter@latest   
 
   release:
 
@@ -19,13 +19,12 @@ jobs:
 
     needs: lint
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Release new version
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
           draft: false
-          prerelease: false        
+          prerelease: false  
