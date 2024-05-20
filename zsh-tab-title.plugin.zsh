@@ -24,6 +24,11 @@ function title {
     print -Pn "\e]2;$tabTitle:q\a" # set window name
   else
     case "$TERM" in
+      xterm-kitty)
+        print -Pn "\e]1;$termTitle:q\a" # set window name
+        print -Pn "\e]2;$tabTitle:q\a" # set tab name
+      ;;
+
       cygwin|xterm*|putty*|rxvt*|ansi|${~ZSH_TAB_TITLE_ADDITIONAL_TERMS})
         print -Pn "\e]2;$termTitle:q\a" # set window name
         print -Pn "\e]1;$tabTitle:q\a" # set tab name
