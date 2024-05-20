@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/trystan2k/zsh-tab-title/compare/v3.0.0...v3.1.0) (2024-05-20)
+
+
+### Features
+
+* correct set tab title when full command is enable or disabled ([e2f1f16](https://github.com/trystan2k/zsh-tab-title/commit/e2f1f163894e0c7de3d55687a0276c20238c2eec))
+
 ## [3.0.0](https://github.com/trystan2k/zsh-tab-title/compare/v2.3.1...v3.0.0) (2024-05-20)
 
 
