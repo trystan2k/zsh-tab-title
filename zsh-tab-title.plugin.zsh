@@ -103,4 +103,4 @@ autoload -U add-zsh-hook
 add-zsh-hook precmd omz_termsupport_precmd
 add-zsh-hook preexec omz_termsupport_preexec
 
-echo "You are currently using an deprecated version of this plugin. Please uninstall the plugin and install the new version or you will start to have problems soon."
+echo "You are currently using a deprecated version of zsh-tab-title. The default branch has changed from master to main. Reinstall the plugin or follow the instructions in the README to upgrade."
