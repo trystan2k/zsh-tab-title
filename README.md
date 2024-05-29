@@ -1,6 +1,6 @@
 # ZSH Tab Title
 
-**IMPORTANT:** Since May/2024 the default branch has changed from `master` to `main`. If you have this plugin installed or hae cloned this repository before this date, you need to update your local repository to use the new branch. You can do this by executing the following command in the repository folder:
+**IMPORTANT:** Since May/2024 the default branch has changed from `master` to `main`. If you have this plugin installed or have cloned this repository before this date, you need to update your local repository to use the new branch. You can do this by executing the following command in the repository folder:
 
 ```sh
 git branch -m master main
