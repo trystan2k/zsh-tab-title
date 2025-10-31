@@ -1,17 +1,34 @@
-#!/bin/bash
-
-# Set terminal window and tab/icon title
+#!/usr/bin/env zsh
+#bashbash Set terminal window and tab/icon title
 #
 # usage: title short_tab_title long_window_title
 #
 # See: http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
-# Fully supports screen, hyper, iterm, and probably most modern xterm and rxvt
+# Fully supports screen, hyper, iterm, zellij, and probably most modern xterm and rxvt
 # (In screen, only short_tab_title is used)
+
+# Detect Zellij
+_in_zellij() { [[ -n "$ZELLIJ" || -n "$ZELLIJ_SESSION_NAME" ]]; }
+
+# Zellij rename actions
+_zt_rename_tab()  { command zellij action rename-tab  "$1" >/dev/null 2>&1; }
+_zt_rename_pane() { command zellij action rename-pane "$1" >/dev/null 2>&1; }
+
 function title {
   emulate -L zsh
   setopt prompt_subst
-  
+
   [[ "$EMACS" == *term* ]] && return
+
+  # Handle Zellij first - use actual arguments directly
+  if _in_zellij; then
+    # Expand prompt sequences in arguments before passing to zellij
+    local tab_name="$(print -P "$1")"
+    local pane_name="$(print -P "$2")"
+    _zt_rename_tab "$tab_name"
+    _zt_rename_pane "$pane_name"
+    return
+  fi
 
   tabTitle="\$1"
   termTitle="\$2"
@@ -43,23 +60,23 @@ function title {
 
 function setTerminalTitleInIdle {
 
-  if [[ "$ZSH_TAB_TITLE_DISABLE_AUTO_TITLE" == true ]]; then
+  if [[ "${ZSH_TAB_TITLE_DISABLE_AUTO_TITLE:-}" == true ]]; then
     return
   fi
 
-  if [[ "$ZSH_TAB_TITLE_ONLY_FOLDER" == true ]]; then
+  if [[ "${ZSH_TAB_TITLE_ONLY_FOLDER:-}" == true ]]; then
     ZSH_THEME_TERM_TAB_TITLE_IDLE=${PWD##*/}
   else
     ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #15 char left truncated PWD
   fi
 
-  if [[ "$ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX" == true ]]; then
+  if [[ "${ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX:-}" == true ]]; then
   ZSH_TAB_TITLE_PREFIX=""
-  elif [[ -z "$ZSH_TAB_TITLE_PREFIX" ]]; then
+  elif [[ -z "${ZSH_TAB_TITLE_PREFIX:-}" ]]; then
     ZSH_TAB_TITLE_PREFIX="%n@%m:"
   fi
 
-  ZSH_THEME_TERM_TITLE_IDLE="$ZSH_TAB_TITLE_PREFIX %~ $ZSH_TAB_TITLE_SUFFIX"
+  ZSH_THEME_TERM_TITLE_IDLE="${ZSH_TAB_TITLE_PREFIX:-} %~ $ZSH_TAB_TITLE_SUFFIX"
 
   title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
 }
