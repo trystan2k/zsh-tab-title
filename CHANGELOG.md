@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/trystan2k/zsh-tab-title/compare/v3.1.0...v3.2.0) (2025-11-01)
+
+
+### Features
+
+* Add support for Zellij terminal emulator ([8a75c2d](https://github.com/trystan2k/zsh-tab-title/commit/8a75c2d82c2a57f6d166f8d8cedba8a63ff352c8))
+* **readme:** fix typo ([9c36ac9](https://github.com/trystan2k/zsh-tab-title/commit/9c36ac968fe675edcc181a41b0b8959024a8b6c1))
+
 ## [3.1.0](https://github.com/trystan2k/zsh-tab-title/compare/v3.0.0...v3.1.0) (2024-05-20)
 
 
