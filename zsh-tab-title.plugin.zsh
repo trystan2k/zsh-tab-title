@@ -14,6 +14,9 @@ _in_zellij() { [[ -n "$ZELLIJ" || -n "$ZELLIJ_SESSION_NAME" ]]; }
 _zt_rename_tab()  { command zellij action rename-tab  "$1" >/dev/null 2>&1; }
 _zt_rename_pane() { command zellij action rename-pane "$1" >/dev/null 2>&1; }
 
+# Optional associative arrays for custom name mapping
+(( ${+ZSH_TAB_TITLE_CMD_MAP} )) || typeset -gA ZSH_TAB_TITLE_CMD_MAP
+
 function title {
   emulate -L zsh
   setopt prompt_subst
@@ -105,6 +108,22 @@ function omz_termsupport_preexec {
 	  # cmd name only, or if this is sudo or ssh, the next cmd
 	  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
     local LINE=${2[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+  fi
+
+  if (( ${+ZSH_TAB_TITLE_CMD_MAP} )) && (( ${#ZSH_TAB_TITLE_CMD_MAP} > 0 )); then
+    local base_cmd="${CMD}"
+
+    if [[ -n "${ZSH_TAB_TITLE_CMD_MAP[$base_cmd]:-}" ]]; then
+      local mapped_cmd="${ZSH_TAB_TITLE_CMD_MAP[$base_cmd]}"
+
+      CMD="$mapped_cmd"
+
+      if [[ "$ZSH_TAB_TITLE_ENABLE_FULL_COMMAND" == true ]]; then
+        LINE="${LINE/$base_cmd/$mapped_cmd}"
+      else
+        LINE="$mapped_cmd"
+      fi
+    fi
   fi
 
   if [[ "$ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS" == true ]]; then

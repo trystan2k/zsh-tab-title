@@ -105,6 +105,25 @@ ZSH_TAB_TITLE_SUFFIX='- $USER'
 
 This variable has no default value, so if nothing is informed, no suffix is added
 
+### COMMAND MAPPING
+
+You can map command names to custom display names using the `ZSH_TAB_TITLE_CMD_MAP` associative array:
+
+```sh
+typeset -gA ZSH_TAB_TITLE_CMD_MAP
+ZSH_TAB_TITLE_CMD_MAP=(
+  "node" " NodeJS"
+  "python3" " 🐍 Python"
+  "docker-compose" " ⛴️ Docker"
+  "nvim" " NeoVim"
+  "git" " Git"
+)
+```
+
+This must be declared **before** loading the plugin in your `.zshrc`. The mapping applies to the command name extracted by the plugin (after stripping sudo, ssh, etc.).
+
+**Example**: When running `node server.js`, the tab title will show `NodeJS` (or `NodeJS server.js` if `ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true`).
+
 ### ADDITIONAL TERMS
 
 By default the tab title is set for iTerm, Hyper, and where ``$TERM`` is set to one of ``cygwin,xterm*,putty*,rxvt*,ansi,screen*,tmux*``
