@@ -100,6 +100,30 @@ function omz_termsupport_preexec {
     return
   fi
 
+  # Check for ZSH_TAB_PROMPT environment variable override
+  local zsh_tab_prompt_override=""
+  local args
+  args=("${(z)1}")  # Tokenize command line, respecting quotes
+
+  # Search for ZSH_TAB_PROMPT= assignment
+  for arg in "${args[@]}"; do
+    if [[ "$arg" == ZSH_TAB_PROMPT=* ]]; then
+      zsh_tab_prompt_override="${arg#ZSH_TAB_PROMPT=}"
+      # Remove surrounding quotes if present
+      zsh_tab_prompt_override="${zsh_tab_prompt_override%\"}"
+      zsh_tab_prompt_override="${zsh_tab_prompt_override#\"}"
+      zsh_tab_prompt_override="${zsh_tab_prompt_override%\'}"
+      zsh_tab_prompt_override="${zsh_tab_prompt_override#\'}"
+      break
+    fi
+  done
+
+  # If override found and non-empty, use it and skip normal parsing
+  if [[ -n "$zsh_tab_prompt_override" ]]; then
+    title "$zsh_tab_prompt_override" "$zsh_tab_prompt_override"
+    return
+  fi
+
   if [[ "$ZSH_TAB_TITLE_ENABLE_FULL_COMMAND" == true ]]; then
   	  # full command
 	  local CMD=${1:gs/%/%%}

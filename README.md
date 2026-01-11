@@ -124,6 +124,30 @@ This must be declared **before** loading the plugin in your `.zshrc`. The mappin
 
 **Example**: When running `node server.js`, the tab title will show `NodeJS` (or `NodeJS server.js` if `ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true`).
 
+### CUSTOM TAB TITLE OVERRIDE
+
+You can force a specific tab title for individual commands by setting the `ZSH_TAB_PROMPT` environment variable. This bypasses all automatic command parsing, mapping, and concatenation logic.
+
+**Syntax:**
+
+```sh
+env ZSH_TAB_PROMPT="Custom Title" command
+ZSH_TAB_PROMPT="Custom Title" command
+```
+
+**Examples:**
+
+```sh
+# Running Claude Code with a custom tab title
+env ZSH_TAB_PROMPT="Claude Code" claude
+
+# Running a development server with project name
+ZSH_TAB_PROMPT="API Dev" npm run dev
+
+# Multiple environment variables with custom title
+DEBUG=true ZSH_TAB_PROMPT="Debug Mode" node server.js
+```
+
 ### ADDITIONAL TERMS
 
 By default the tab title is set for iTerm, Hyper, and where ``$TERM`` is set to one of ``cygwin,xterm*,putty*,rxvt*,ansi,screen*,tmux*``
