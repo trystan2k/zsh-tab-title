@@ -65,6 +65,14 @@ You can display in the tab title, just the last folder you are in. So for exampl
 ZSH_TAB_TITLE_ONLY_FOLDER=true
 ```
 
+### TRUNCATE WORKING DIRECTORY IN IDLE TITLE
+
+Change the amount of characters to which the current working directory should be truncated in the idle tab title if `ZSH_TAB_TITLE_ONLY_FOLDER=false.`
+
+```sh
+ZSH_TAB_TITLE_IDLE_CWD_TRUNCATE_LENGTH=20
+```
+
 ### CONCAT FOLDER AND PROCESS
 
 When executing a command, it is showed in the tab title. You can setup to concatenate the current folder to it, so it can display, for example, `zsh-tab-title:ls`, when doing a `ls` in `/home/user/zsh-tab-title`. To enable concat folder and process, do:

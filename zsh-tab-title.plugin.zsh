@@ -67,7 +67,8 @@ function setTerminalTitleInIdle {
   if [[ "${ZSH_TAB_TITLE_ONLY_FOLDER:-}" == true ]]; then
     ZSH_THEME_TERM_TAB_TITLE_IDLE=${PWD##*/}
   else
-    ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #15 char left truncated PWD
+    # default 20 char left truncated CWD
+    ZSH_THEME_TERM_TAB_TITLE_IDLE="%${ZSH_TAB_TITLE_IDLE_CWD_TRUNCATE_LENGTH:-20}<..<%~%<<" 
   fi
 
   if [[ "${ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX:-}" == true ]]; then
