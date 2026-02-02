@@ -43,7 +43,7 @@
   },
   "lint-staged": {
     "*.+(sh)": [
-      "npm run lint"
+      "pnpm lint"
     ],
     "package.json": [
       "sort-package-json"
@@ -65,13 +65,13 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
-    "@commitlint/cz-commitlint": "^20.1.0",
+    "@commitlint/cli": "^20.4.0",
+    "@commitlint/config-conventional": "^20.4.0",
+    "@commitlint/cz-commitlint": "^20.4.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.6",
-    "prettier": "^3.6.2",
-    "sort-package-json": "^3.4.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "sort-package-json": "^3.6.1",
     "standard-version": "^9.5.0"
   },
   "standard-version": {
