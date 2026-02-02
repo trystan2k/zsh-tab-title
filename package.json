@@ -1,6 +1,6 @@
 {
   "name": "@trystan2k/zsh-tab-title",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "A zsh plugin that allows you to set a terminal header like any of PROMPT",
   "keywords": [
     "trystan2k",
